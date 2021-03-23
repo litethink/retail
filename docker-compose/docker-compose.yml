@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+
+  mysql-db:
+    container_name: mysql-docker        # 指定容器的名称
+    image: mysql:8.0                   # 指定镜像和版本
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
+
+    volumes:
+      - "${MYSQL_DIR}/data:/var/lib/mysql"           # 挂载数据目录
+      - "${MYSQL_DIR}/config:/etc/mysql/conf.d"      # 挂载配置文件目录
+      - "${MYSQL_DIR}/home:/home"   
+      
+    command: /bin/bash /home/entrypoint_before.sh
+
+
+  redis:
+
+    container_name: redis-cache
+
+    image: redis:5.0.8
+    ports:
+      - 6379:6379
+
+    volumes:
+
+      - "${REDIS_CACHE_DIR}/redis.conf:/etc/redis/redis.conf"
+
+      - "${REDIS_CACHE_DIR}/logs:/usr/local/redis/logs"
+
+      - "${REDIS_CACHE_DIR}/data:/data"
+      - "${REDIS_CACHE_DIR}/home:/home"
+
+      - TZ=Asia/Shanghai
+      - LANG=en_US.UTF-8
+
+    command: [ "redis-server", "/etc/redis/redis.conf" ]
+    #privileged: true
+    restart: always

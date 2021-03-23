@@ -1,0 +1,1 @@
+HASH_METHOD = 'pbkdf2:sha256'
