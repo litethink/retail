@@ -5,6 +5,16 @@ from sanicdb import SanicDB
 from retail.serve import server
 from .base import *
 
+
+# solve  Can't connect to MySQL server on '127.0.0.1' bug temporarily.
+# def connect_db():
+#     sqlcfg = server.config.get("mysql")
+#     con = pymysql.connect(host=sqlcfg.get(host), user=sqlcfg.get(user), passwd=sqlcfg.get(password),
+#          db=sqlcfg.get(db), port=sqlcfg.get(port), charset='utf8')
+#     cur = con.cursor()
+#     cur.close()
+# connect_db()
+
 __db__ = SanicDB(**server.config.pop("mysql"),sanic=server.app)
 
 class Model(dict, metaclass=ModelMetaclass):

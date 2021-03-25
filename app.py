@@ -31,18 +31,21 @@ async def protected_route_info(request: request.Request, user):
     # import pdb
     # pdb.set_trace()
     if user:
-        data ={'userName': user.get(b"username").decode(), "personalInfo": str(user)}
+        data ={'userName': user.get("username"), "personalInfo": str(user)}
         return response.json(data)
     else:
         raise exceptions.AuthenticationFailed("Retrieve user failed,maybe user is expired authorization")
     # else:  # 进入黑名单等级之后限制查看
     #     return response.json({'userName': user.username, "personalInfo": ""})
+async def testfunc(request:request.Request):
+    from redis import KindRedis
+    x = KindRedis(server.app,"cache")
+    await x.f()
 
 server.add_route(register_account,"/account/register",methods=["POST"])
 server.add_route(protected_route_index,"/index")
 server.add_route(protected_route_info,"/info")
-# server.add_route(test3,"/test3")
-
+server.add_route(testfunc,"/testfunc")
 
 
 

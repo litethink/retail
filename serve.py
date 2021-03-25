@@ -10,7 +10,8 @@ test_config = {
         "host"  : "127.0.0.1",
         "database"    : "retail001",
         "user"    : "retail001",
-        "password"    : "001retail"
+        "password"    : "001retail",
+        "port" :3306
         },
     "redis":{
         "cache" :{
@@ -22,12 +23,16 @@ test_config = {
     "jwt" :{
         "url_prefix" : '/auth',
         "secret" : ',$FCyFZ^b16#m:ragM#d-!;4!U5wdZ~ZPOI%ZDF(kkr%MaBU42AN:jXgp7',
-        "expiration_delta" : 1 * 60,
+        "expiration_delta" : 10 * 60,
         "cookie_set" : True,
         "cookie_access_token_name" : "access_token",
-        "user_id" : "uid",
-        "claim_iat" : True, # 显示签发时间，JWT的默认保留字段，在 sanic-jwt 中默认不显示该项   
+        "user_id" : "user_id",
+        "refresh_token_enabled": True,
+        "claim_iat" : True, # 显示签发时间，JWT的默认保留字段，在 sanic-jwt 中默认不显示该项  
+        "authorization_header":"authorization",
+        "authorization_header_prefix":"Retail"
     },
+    "cache_delay" : 1*60
     }
 
 
@@ -42,7 +47,7 @@ class Server:
         self.__cache__ = SanicRedis(self.__app__, config_name="cache")
         self.config = kwargs
         #set cache ex time, must  more 3 minute than  jwt expiration_delta
-        self.cache_expiration = kwargs.get("jwt")["expiration_delta"] +10
+        self.cache_expiration = kwargs.get("jwt")["expiration_delta"] + kwargs.pop("cache_delay")
     
     @property
     def app(self):
