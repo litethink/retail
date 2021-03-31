@@ -1,7 +1,7 @@
 <!-- run containers -->
 
 docker-compose up
-
+```python
 <!-- run server -->
 
 python app.py
@@ -66,3 +66,4 @@ c2 = requests.get("http://127.0.0.1:8000/info",headers = {"authorization": "Reta
                 self.instance.auth.retrieve_user, request, payload=payload
             )
  -->
+ ```
