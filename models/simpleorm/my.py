@@ -38,7 +38,7 @@ class Model(dict, metaclass=ModelMetaclass):
             if not getattr(self, k,v.default):
                 pass
                 if v.notnull:
-                    raise ValueError(r"{} assigned no null but value is None".format(k))
+                    raise ValueError(r"{} assigned no null but value not default".format(k))
             else: 
                 fields.append(k)
                 params.append(getattr(self, k,v.default))
