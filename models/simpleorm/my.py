@@ -79,8 +79,8 @@ class Model(dict, metaclass=ModelMetaclass):
 
     async def where(self,conditions:tuple, requirements:tuple,operators:tuple,logics:tuple=(),columns:tuple=None):
         """
-            when sentence make up "where x=a and y=b and z>c";
-            parameter is conditions=(x,y,z),requirements=(a,b,c),operators=(=,=,>),logics=(and,and)
+            when sentence made up with "where x=a and y=b and z>c";
+            parameter is create by conditions=(x,y,z),requirements=(a,b,c),operators=(=,=,>),logics=(and,and)
         """
         (length := len(conditions))
         if length == len(operators) and length == len(requirements)  and length - len(logics) == 1:
