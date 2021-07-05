@@ -5,6 +5,7 @@ class Field(object):
         '''
         1，删除了参数name，field参数全部为定义字段类型相关参数，和众多有名的orm相同
         2，使用反射，方便字段的扩展，如本例使用deafault就是反射的应用
+        3，由于子类属性未定义，通过kwargs传递定义子类的属性
         '''
 
         self.column_type = column_type #字段长度
