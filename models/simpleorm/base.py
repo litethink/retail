@@ -12,7 +12,7 @@ class Field(object):
         self.notnull = False
         if kwargs:
             for k,v in kwargs.items():
-                if hasattr(self,k):
+                if not hasattr(self,k):
                     setattr(self,k,v)
  
     def __str__(self):
