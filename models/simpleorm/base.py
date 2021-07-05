@@ -90,6 +90,6 @@ class ModelMetaclass(type):
 
 
 __all__ = []
-for field in dir():
-    if field[0] != "_" and field != "Field":
-        __all__.append(field)
+for attr in dir():
+    if attr[0] != "_" and attr != "Field":
+        __all__.append(attr)
