@@ -73,9 +73,10 @@ class ModelMetaclass(type):
 
         mappings = dict()
         for k, v in attrs.items():
-            #print('k={},v={}'.format(k,v))
+            ##只有Field 保存在model实例的__mapping__中
             if isinstance(v, Field):
                 mappings[k] = v
+        #删除model实例所有的属性
         for k in mappings.keys():
             attrs.pop(k)
         attrs['__mappings__'] = mappings # 保存属性和列的映射关系
